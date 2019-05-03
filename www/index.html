@@ -1,0 +1,32 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/keren.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var url = "https://khristmaz.000webhostapp.com/posyandu/www/json.php";
+        $.getJSON(url, function(result) {
+            console.log(result);
+            $.each(result, function(i, field) {
+                var id = field.id;
+                var nama = field.nama;
+                var alamat = field.alamat;
+                var price = field.price;
+                $("#listview").append("<a href='form.html?id=" + id + "&nama=" + nama + "&alamat=" + alamat +"'><h2 style='color:black'>" + nama + " </h2><p style='color:black'>" + alamat + "</p><hr></a>");
+            });
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <ul>
+        <li style="float:Left"><a href="index.html" class="active">Home</a></li>
+        <li style="float:Right"><a class="active" href="insert.html">Tambah Data</a></li>
+        <center><h1 Style="color:white">Posyandu Data</h1></center>
+    </ul>
+    <ul style="background:lightgreen" class="list" id="listview">
+    </ul>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/keren.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/geturi.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var id = decodeURI(getUrlVars()["id"]);
+        var nama = decodeURI(getUrlVars()["nama"]);
+        var alamat = decodeURI(getUrlVars()["alamat"]);
+        $("#id").val(id);
+        $("#nama").val(nama);
+        $("#alamat").val(alamat);
+        $("#update").click(function() {
+            var id = $("#id").val();
+            var nama = $("#nama").val();
+            var alamat = $("#alamat").val();
+            var dataString = "id=" + id + "&nama=" + nama + "&alamat=" + alamat + "&update=";
+            $.ajax({
+                type: "POST",
+                url: "https://khristmaz.000webhostapp.com/posyandu/www/update.php",
+                data: dataString,
+                crossDomain: true,
+                cache: false,
+                beforeSend: function() {
+                    $("#update").val('Connecting...');
+                },
+                success: function(data) {
+                    if (data == "success") {
+                        alert("Updated");
+                        $("#update").val("Update");
+                    } else if (data == "error") {
+                        alert("error");
+                    }
+                }
+            });
+
+        });
+        $("#delete").click(function() {
+            var id = $("#id").val();
+            var dataString = "id=" + id + "&delete=";
+            $.ajax({
+                type: "GET",
+                url: "https://khristmaz.000webhostapp.com/posyandu/www/delete.php",
+                data: dataString,
+                crossDomain: true,
+                cache: false,
+                beforeSend: function() {
+                    $("#delete").val('Connecting...');
+                },
+                success: function(data) {
+                    if (data == "success") {
+                        alert("Deleted");
+                        $("#delete").val("Delete");
+                    } else if (data == "error") {
+                        alert("error");
+                    }
+                }
+            });
+
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <ul>
+        <li style="float:left"><a class="active" href="index.html">Home</a></li>
+        <li style="float:right"><a class="active" href="index.html">Lihat Data</a></li>
+        <center><h1 style="color:white">Posyandu</h1></center>
+    </ul>
+    <div>
+        <input type="hidden" id="id" value="" />
+            <label>nama</label>
+            <input type="text" id="nama" value="" />
+
+            <label>alamat</label>
+            <input type="text" id="alamat" value="" />
+
+            <input type="button" id="update" value="Update" />
+            <input type="button" id="delete" value="Delete" />
+    </div>
+</body>
+
+</html>
